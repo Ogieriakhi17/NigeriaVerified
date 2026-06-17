@@ -20,7 +20,7 @@ export default async function CheckPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center px-4 gap-8">
-      <h1 className="text-3xl font-bold text-green-400">NaijaaaCheck</h1>
+      <h1 className="text-3xl font-bold text-green-400">NigeriaVerified</h1>
       <VerdictCard
         claim={data.submitted_claim}
         verdict={data.verdict}

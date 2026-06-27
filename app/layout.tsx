@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'NaijaCheck — Nigerian Election Fact Checker',
-  description: 'Verify Nigerian election claims instantly. Fight misinformation before you share.',
+  title: 'NaijaCheck — Nigerian Election Civic Tools',
+  description: 'Free civic tools to fight election misinformation and keep Nigerian voters informed. Built for the 2027 elections.',
   openGraph: {
     title: 'NaijaCheck',
-    description: 'Verify Nigerian election claims instantly.',
+    description: 'Free civic tools to fight Nigerian election misinformation.',
     type: 'website',
   }
 }
@@ -20,33 +20,45 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <nav style={{
-          borderBottom: '1px solid #1a1a1a',
-          padding: '16px 24px',
+          padding: '20px 32px',
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
+          justifyContent: 'space-between',
+          borderBottom: '0.5px solid #e5e5e5',
+          background: 'rgba(255,255,255,0.95)',
+          backdropFilter: 'blur(12px)',
           position: 'sticky',
           top: 0,
-          background: 'rgba(10,10,10,0.85)',
-          backdropFilter: 'blur(12px)',
           zIndex: 50
         }}>
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-            <div style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              background: 'var(--green-primary)'
-            }} />
-            <span style={{
-              fontSize: '13px',
-              fontWeight: 600,
-              letterSpacing: '0.1em',
-              color: '#fff'
-            }}>
-              NAIJACHECK
-            </span>
+          <a href="/" style={{
+            fontSize: '13px',
+            fontWeight: 700,
+            letterSpacing: '0.15em',
+            color: '#111',
+            textDecoration: 'none'
+          }}>
+            NAIJACHECK
           </a>
+
+          <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+            <a href="/checker" style={{
+              fontSize: '12px',
+              color: '#000',
+              textDecoration: 'none',
+              letterSpacing: '0.05em'
+            }}>
+              CLAIM VERIFIER
+            </a>
+            <a href="/candidates" style={{
+              fontSize: '12px',
+              color: '#000',
+              textDecoration: 'none',
+              letterSpacing: '0.05em'
+            }}>
+              CANDIDATES
+            </a>
+          </div>
         </nav>
         {children}
       </body>

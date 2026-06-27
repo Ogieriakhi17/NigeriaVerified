@@ -1,60 +1,87 @@
 @import "tailwindcss";
 
 :root {
-    --green-primary: #00c853;
-    --green-secondary: #69f0ae;
-    --cyan-accent: #00e5ff;
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #111111;
-    --bg-card: #161616;
-    --border-subtle: #222222;
-    --border-card: #1e1e1e;
-    --text-primary: #ffffff;
-    --text-secondary: #aaaaaa;
-    --text-muted: #555555;
+  --green-primary: #00c853;
+  --green-secondary: #69f0ae;
+  --cyan-accent: #00e5ff;
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #161616;
+  --border-subtle: #222222;
+  --border-card: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #aaaaaa;
+  --text-muted: #555555;
 }
 
 body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
 }
 
 .grad-text {
-    background: linear-gradient(90deg, var(--green-primary), var(--green-secondary), var(--cyan-accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  background: linear-gradient(90deg, var(--green-primary), var(--green-secondary), var(--cyan-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .grad-btn {
-    background: linear-gradient(135deg, var(--green-primary), #00bfa5);
-    transition: opacity 0.2s ease;
+  background: linear-gradient(135deg, var(--green-primary), #00bfa5);
+  transition: opacity 0.2s ease;
 }
 
 .grad-btn:hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 .grad-btn:disabled {
-    background: #1a1a1a;
-    color: #444;
+  background: #1a1a1a;
+  color: #444;
 }
 
 .grad-bar {
-    background: linear-gradient(90deg, var(--green-primary), var(--green-secondary));
+  background: linear-gradient(90deg, var(--green-primary), var(--green-secondary));
 }
 
 .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-card);
-    border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
 }
 
-a:hover {
-    color: var(--green-primary);
-    transition: color 0.2s ease;
+@keyframes border-race {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.racing-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.racing-border::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 30%,
+    #00c853 50%,
+    #69f0ae 55%,
+    #00e5ff 60%,
+    transparent 70%,
+    transparent 100%
+  );
+  background-size: 200% 200%;
+  animation: border-race 1.5s linear infinite;
+  z-index: -1;
+}
+
+a {
+  transition: color 0.2s ease;
 }
 
 @keyframes ping-border {
@@ -75,39 +102,10 @@ a:hover {
     animation: ping-border 1.5s ease-out infinite;
 }
 
-@keyframes border-race {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-.racing-border {
-    position: relative;
-    isolation: isolate;
-}
-
-.racing-border::before {
-    content: '';
-    position: absolute;
-    inset: -1.5px;
-    border-radius: 999px;
-    background: linear-gradient(90deg,
-            transparent 0%,
-            transparent 30%,
-            #00c853 50%,
-            #69f0ae 55%,
-            #00e5ff 60%,
-            transparent 70%,
-            transparent 100%);
-    background-size: 200% 200%;
-    animation: border-race 1.5s linear infinite;
-    z-index: -1;
-}
+.tool-card-hover {
+    transition: transform 0.2s ease;
+  }
+  
+  .tool-card-hover:hover {
+    transform: scale(1.01);
+  }

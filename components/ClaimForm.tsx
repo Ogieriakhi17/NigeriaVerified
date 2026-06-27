@@ -32,7 +32,6 @@ export default function ClaimForm() {
         return
       }
 
-      // redirect to the shareable verdict page
       router.push(`/check/${data.id}`)
 
     } catch (err) {
@@ -43,29 +42,41 @@ export default function ClaimForm() {
   }
 
   return (
-    <div className="w-full max-w-2xl flex flex-col gap-4">
+    <div className="flex flex-col gap-3 w-full">
       <textarea
-        className="w-full h-40 bg-gray-900 border border-gray-700 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-green-500 resize-none text-base"
-        placeholder="Paste a claim you received on WhatsApp or social media e.g. 'INEC has postponed the 2027 elections...'"
+        className="w-full h-36 rounded-2xl p-4 text-sm leading-relaxed resize-none outline-none transition-all"
+        style={{
+          background: 'var(--bg-secondary)',
+          border: '1px solid var(--border-subtle)',
+          color: 'var(--text-primary)',
+          caretColor: 'var(--green-primary)',
+        }}
+        placeholder='Paste claim from WhatsApp e.g. "INEC don cancel election for Lagos..."'
         value={claim}
         onChange={(e) => setClaim(e.target.value)}
+        onFocus={(e) => e.target.style.borderColor = 'var(--green-primary)'}
+        onBlur={(e) => e.target.style.borderColor = 'var(--border-subtle)'}
       />
 
       {error && (
-        <p className="text-red-400 text-sm">{error}</p>
+        <p className="text-sm px-1" style={{ color: '#ff5252' }}>{error}</p>
       )}
 
       <button
         onClick={handleSubmit}
-        disabled={loading}
-        className="w-full bg-green-500 hover:bg-green-400 disabled:bg-gray-700 disabled:text-gray-500 text-black font-semibold py-4 rounded-xl transition-colors text-base"
+        disabled={loading || claim.trim().length < 10}
+        className="grad-btn w-full py-4 rounded-2xl text-sm font-semibold text-black disabled:cursor-not-allowed"
       >
-        {loading ? 'Verifying...' : 'Verify this claim'}
+        {loading ? (
+          <span className="flex items-center justify-center gap-2">
+            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+            </svg>
+            Verifying...
+          </span>
+        ) : 'Verify this claim →'}
       </button>
-
-      <p className="text-gray-600 text-xs text-center">
-        Powered by AI — always cross-check with official INEC sources
-      </p>
     </div>
   )
 }

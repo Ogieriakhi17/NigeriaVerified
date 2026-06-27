@@ -8,34 +8,10 @@ interface Props {
 }
 
 const verdictConfig = {
-  TRUE: {
-    label: 'True',
-    bg: 'bg-green-500/10',
-    border: 'border-green-500/30',
-    text: 'text-green-400',
-    emoji: '✅'
-  },
-  FALSE: {
-    label: 'False',
-    bg: 'bg-red-500/10',
-    border: 'border-red-500/30',
-    text: 'text-red-400',
-    emoji: '❌'
-  },
-  MISLEADING: {
-    label: 'Misleading',
-    bg: 'bg-yellow-500/10',
-    border: 'border-yellow-500/30',
-    text: 'text-yellow-400',
-    emoji: '⚠️'
-  },
-  UNVERIFIED: {
-    label: 'Unverified',
-    bg: 'bg-gray-500/10',
-    border: 'border-gray-500/30',
-    text: 'text-gray-400',
-    emoji: '❓'
-  }
+  TRUE: { label: 'TRUE', color: '#00c853', bg: '#0d2b0d', border: '#1a4a1a', emoji: '✅' },
+  FALSE: { label: 'FALSE', color: '#ff5252', bg: '#2b0d0d', border: '#4a1a1a', emoji: '❌' },
+  MISLEADING: { label: 'MISLEADING', color: '#ffab40', bg: '#2b1a00', border: '#4a3000', emoji: '⚠️' },
+  UNVERIFIED: { label: 'UNVERIFIED', color: '#888888', bg: '#1a1a1a', border: '#2a2a2a', emoji: '❓' }
 }
 
 export default function VerdictCard({ claim, verdict, explanation, confidence }: Props) {
@@ -47,43 +23,83 @@ export default function VerdictCard({ claim, verdict, explanation, confidence }:
   }
 
   return (
-    <div className={`w-full max-w-2xl rounded-2xl border p-6 flex flex-col gap-5 ${config.bg} ${config.border}`}>
+    <div className="w-full max-w-xl flex flex-col gap-4">
 
-      <div className="flex flex-col gap-1">
-        <p className="text-gray-500 text-xs uppercase tracking-widest">Claim submitted</p>
-        <p className="text-gray-300 text-base italic">"{claim}"</p>
+      {/* claim */}
+      <div className="card p-5">
+        <p className="text-xs font-medium mb-2"
+          style={{ color: 'var(--text-muted)', letterSpacing: '0.1em' }}>
+          CLAIM SUBMITTED
+        </p>
+        <p className="text-sm leading-relaxed italic"
+          style={{ color: 'var(--text-secondary)' }}>
+          "{claim}"
+        </p>
       </div>
 
-      <div className="flex items-center gap-3">
-        <span className="text-4xl">{config.emoji}</span>
-        <div>
-          <p className="text-gray-500 text-xs uppercase tracking-widest">Verdict</p>
-          <p className={`text-3xl font-bold ${config.text}`}>{config.label}</p>
+      {/* verdict */}
+      <div className="p-5 rounded-2xl"
+        style={{ background: config.bg, border: `1px solid ${config.border}` }}>
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
+            style={{ background: 'rgba(0,0,0,0.3)' }}>
+            {config.emoji}
+          </div>
+          <div>
+            <p className="text-xs font-medium mb-1"
+              style={{ color: 'var(--text-muted)', letterSpacing: '0.1em' }}>
+              VERDICT
+            </p>
+            <p className="text-4xl font-bold" style={{ color: config.color }}>
+              {config.label}
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col gap-1">
-        <p className="text-gray-500 text-xs uppercase tracking-widest">Explanation</p>
-        <p className="text-gray-200 text-base leading-relaxed">{explanation}</p>
+      {/* explanation */}
+      <div className="card p-5">
+        <p className="text-xs font-medium mb-2"
+          style={{ color: 'var(--text-muted)', letterSpacing: '0.1em' }}>
+          EXPLANATION
+        </p>
+        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+          {explanation}
+        </p>
       </div>
 
-      <div className="flex flex-col gap-1">
-        <p className="text-gray-500 text-xs uppercase tracking-widest">Confidence</p>
-        <div className="w-full bg-gray-800 rounded-full h-2">
+      {/* confidence */}
+      <div className="card p-5">
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-xs font-medium"
+            style={{ color: 'var(--text-muted)', letterSpacing: '0.1em' }}>
+            CONFIDENCE
+          </p>
+          <p className="text-sm font-semibold" style={{ color: config.color }}>
+            {confidence}%
+          </p>
+        </div>
+        <div className="w-full h-1.5 rounded-full" style={{ background: '#1a1a1a' }}>
           <div
-            className={`h-2 rounded-full ${config.text.replace('text', 'bg')}`}
+            className="h-1.5 rounded-full grad-bar transition-all"
             style={{ width: `${confidence}%` }}
           />
         </div>
-        <p className={`text-sm font-medium ${config.text}`}>{confidence}%</p>
       </div>
 
+      {/* share */}
       <button
         onClick={copyLink}
-        className="w-full border border-gray-700 hover:border-green-500 text-gray-400 hover:text-green-400 py-3 rounded-xl text-sm font-medium transition-colors"
+        className="w-full py-4 rounded-2xl text-sm font-medium transition-all hover:scale-[1.01]"
+        style={{
+          background: 'var(--bg-secondary)',
+          border: '1px solid var(--border-subtle)',
+          color: 'var(--text-secondary)'
+        }}
       >
-        📋 Copy link to share this verdict
+        Copy link to share this verdict →
       </button>
+
     </div>
   )
 }
